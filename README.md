@@ -16,15 +16,14 @@ Abaixo temos toda a comunicação dos recursos contidos neste projeto.
  
 ## Rodando o projeto.
 
-###1. Subindo os serviços da aws.
-
+### 1. Subindo os serviços da aws.
 
 Dentro da pasta `infra` execute o comando abaixo para montar os containers com o docker-compose.
 
 ```bash
 $ docker-compose -f aws-localstack.yaml --env-file ../.env up -d
 ```
-> *NOTE:* Se estiver executando em uma máquina com distribuição linux lembre de alterar o hostname no arquivo .env de `host.docker.internal` para `localhost`.
+> *NOTA:* Se estiver executando em uma máquina com distribuição linux você deve alterar o hostname no arquivo .env de `host.docker.internal` para `localhost`.
 
 ### Subindo o serviço do Serverless Offline.
 
@@ -40,11 +39,9 @@ Se adicionar uma nova dependência.
 $ docker-compose build --no-cache && docker-compose up
 ```
 
-
 ## Postman Collection
 
 Para que você possa interagir com a aplicação, na pasta `docs` existe uma coleção do postman.
-
 
 ## Gerar zip das lambdas
 

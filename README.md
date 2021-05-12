@@ -26,7 +26,7 @@ $ docker-compose -f aws-localstack.yaml --env-file ../.env up -d
 ```
 > *NOTE:* Se estiver executando em uma máquina com distribuição linux lembre de alterar o hostname no arquivo .env de `host.docker.internal` para `localhost`.
 
-###Subindo o serviço do Serverless Offline.
+### Subindo o serviço do Serverless Offline.
 
 Se for a primeira vez que vai executar basta rodar o comando abaixo para que ele gere o build da imagem e suba o container.
 
@@ -52,7 +52,7 @@ Para que você possa interagir com a aplicação, na pasta `docs` existe uma col
 $ juni build
 ```
 
-##Testes
+## Testes
 
 Para executar um teste gravando todos os dados da requisição com o vcr.
 
@@ -72,7 +72,7 @@ Para executar os testes com cobertura de testes gerando um relatório em html.
 $ docker exec -it <ID OU NOME DO CONTAINER> pytest --block-network --cov-config .coveragerc --cov src --cov-report html tests/hello.py
 ```
 
-##Documentação and Bibliotecas
+## Documentação and Bibliotecas
 
 - https://github.com/localstack/localstack
 - https://www.serverless.com/framework/docs

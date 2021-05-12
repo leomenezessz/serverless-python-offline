@@ -1,0 +1,13 @@
+.serverless
+node_modules
+.idea
+__pycache__/
+virtual-env
+package-lock.json
+.vscode
+.pytest_cache
+htmlcov
+.coverage
+.pyc
+venv
+

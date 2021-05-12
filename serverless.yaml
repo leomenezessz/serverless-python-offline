@@ -1,0 +1,121 @@
+service: serveless-python
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: ${opt:stage,'test'}
+
+plugins:
+  - serverless-localstack
+  - serverless-dotenv-plugin
+  - serverless-offline-sns
+  - serverless-offline-sqs
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  localstack:
+    debug: true
+    stages:
+      - test
+  serverless-offline:
+    host: 0.0.0.0
+    noTimeout: true
+    noPrependStageInUrl: true
+  serverless-offline-sns:
+    host: 0.0.0.0
+    sns-subscribe-endpoint: ${env:SNS_ENDPOINT_SUBSCRIPTION }
+    sns-endpoint: ${env:SNS_ENDPOINT}
+  serverless-offline-sqs:
+    autoCreate: true
+    apiVersion: '2012-11-05'
+    endpoint: ${env:SQS_ENDPOINT}
+    region: us-east-1
+    accessKeyId: root
+    secretAccessKey: root
+  dynamodb:
+    stages:
+      - test
+    start:
+      host: ${env:DYNAMO_HOST}
+      port: 4566
+      inMemory: false
+      heapInitial: 200m
+      heapMax: 2g
+      seed: true
+      dbPath: ./infra
+      sharedDb: true
+      migrate: true
+      noStart: true
+    seed:
+      test:
+        sources:
+          - table: pizzas
+            sources: [infra/data/pizzas-fake-data.json]
+
+functions:
+  pizzas:
+    handler: src/pizzas/handler.pizzas
+    events:
+      - http: GET pizzas
+  orders:
+    handler: src/orders/handler.orders_in_range
+    events:
+      - http: GET pizza/orders
+  order:
+    handler: src/order/handler.send_order
+    events:
+      - http: POST pizzas/order
+  process-order:
+    handler: src/process/handler.process_order
+    events:
+      - sqs:
+          queueName: orders-queue
+  save-order:
+    handler: src/saver/handler.save_order
+    events:
+      - sns: orders-topic
+  order-email:
+    handler: src/email/handler.send_mail
+    events:
+      - sns: orders-topic
+  order-status:
+    handler: src/status/handler.update_order
+    events:
+      - http: PUT order/{id}/status
+  pokemon:
+    handler: src/hello/handler.hello
+    events:
+      - http: GET pokemon/{name}
+
+resources:
+  Resources:
+    pizzas-table:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: pizzas
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    orders-table:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: orders
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+

@@ -1,0 +1,39 @@
+global:
+  output: ./build
+
+functions:
+  order:
+    requirements: ./src/order/requirements.txt
+    include:
+      - ./src/order/handler.py
+      - ./libs
+  orders:
+    include:
+      - ./src/orders/handler.py
+      - ./libs
+  pizzas:
+    include:
+      - ./src/pizzas/handler.py
+      - ./libs
+  process:
+    include:
+      - ./src/process/handler.py
+      - ./libs
+  status:
+    include:
+      - ./src/status/handler.py
+      - ./libs
+  saver:
+    include:
+      - ./src/saver/handler.py
+      - ./libs
+  email:
+    include:
+      - ./src/email/handler.py
+      - ./libs
+  hello:
+    requirements: ./src/hello/requirements.txt
+    include:
+      - ./src/hello/handler.py
+      - ./src/hello/validator.py
+      - ./libs

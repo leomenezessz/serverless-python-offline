@@ -1,0 +1,34 @@
+{
+  "name": "localstack-serverless-python",
+  "version": "1.0.0",
+  "description": "A sample of localstack with serveless plugin",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --inspect=0.0.0.0:9229 --nolazy ./node_modules/.bin/serverless offline start",
+    "debug": "export SLS_DEBUG=* && node --inspect=0.0.0.0:9229 --nolazy ./node_modules/.bin/serverless offline start"
+  },
+  "author": "Leonardo Menezes",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "2.0.4",
+    "serverless": "1.72.0",
+    "serverless-dotenv-plugin": "3.9.0",
+    "serverless-dynamodb-local": "0.2.39",
+    "serverless-localstack": "0.4.30",
+    "serverless-offline": "6.4.0",
+    "serverless-offline-sns": "github:mj1618/serverless-offline-sns#0e75fe6",
+    "serverless-offline-sqs": "4.0.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "tools/*",
+      "build/*",
+      ".serverless/*",
+      "infraestructure/*",
+      "venv/*",
+      ".vscode/*",
+      "**/node_modules/**"
+    ]
+  }
+}

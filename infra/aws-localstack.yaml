@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  localstack:
+    container_name: aws_localstack
+    network_mode: bridge
+    image: localstack/localstack
+    ports:
+      - '4566-4597:4566-4597'
+    environment:
+      - DEFAULT_REGION=us-east-1
+      - LS_LOG=trace
+      - SERVICES=sns,sqs,dynamodb,s3
+      - HOSTNAME_EXTERNAL=${HOSTNAME}
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  redis:
+    container_name: aws_redis
+    image: redis
+    command: [ "redis-server", "--bind", "0.0.0.0", "--port", "6379" ]
+    ports:
+      - '6379:6379'
+
+
+

@@ -1,0 +1,17 @@
+version: "3.5"
+services:
+  serverless-offline-python:
+    build: .
+    container_name: serverless-offline-python
+    command: node ./node_modules/nodemon/bin/nodemon -e py,yml,yaml --exec npm start
+    network_mode: bridge
+    ports:
+      - "3000:3000"
+      - "3002:3002"
+      - "4002:4002"
+      - "9228:9228"
+      - "9229:9229"
+      - "5890:5890"
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules

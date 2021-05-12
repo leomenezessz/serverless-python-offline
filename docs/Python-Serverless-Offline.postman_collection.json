@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "38721583-0af5-49e6-8155-ce77967f2f2e",
+		"name": "Python-Serverless-Offline",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pizzas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:3000/pizzas?limit=10",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"pizzas"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:3000/pizza/orders?startAt=2021-05-07&endAt=2021-05-07",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"pizza",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "startAt",
+							"value": "2021-05-07"
+						},
+						{
+							"key": "endAt",
+							"value": "2021-05-07"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"b1ba31ba-2640-4898-82c2-395f02bd7xhg\",\n    \"paymentMethod\": \"CREDIT_CARD\",\n    \"total\" : \"3000\",\n    \"pizzas\": [\n        {\n        \"id\": \"b1ba31ba-2640-4898-82c2-39tt02bx723c\",\n        \"name\": \"Pepperoni\",\n        \"price\": \"1500\"\n    },\n    {\n        \"id\": \"b1ba31ba-2640-4898-82c2-39tt02bx723c\",\n        \"name\": \"Pepperoni\",\n        \"price\": \"1500\"\n    }\n ] \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:3000/pizza/order",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"pizza",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "status",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\":\"in preparation\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:3000/order/id/status",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"order",
+						"id",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
